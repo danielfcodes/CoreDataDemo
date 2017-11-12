@@ -21,6 +21,12 @@ class CompanyCell: UITableViewCell{
     return label
   }()
   
+  var company: Company!{
+    didSet{
+      fillUI()
+    }
+  }
+  
   override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)
     
@@ -33,11 +39,19 @@ class CompanyCell: UITableViewCell{
     fatalError("Error coder on CompanyCell")
   }
   
+  //MARK: Initial setup
+  
   fileprivate func setupViews(){
     addSubview(companyNameLabel)
     companyNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     companyNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     companyNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+  }
+  
+  //MARK: Private methods
+  
+  fileprivate func fillUI(){
+    companyNameLabel.text = company.name
   }
   
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController {
+class CompaniesController: UIViewController {
 
   fileprivate lazy var tableView: UITableView = {
     let tv = UITableView()
@@ -19,33 +19,36 @@ class HomeViewController: UIViewController {
     tv.register(CompanyCell.self, forCellReuseIdentifier: Identifiers.mainCell)
     return tv
   }()
+  
+  fileprivate var companies: [Company] = []
 
 }
 
 //MARK: Life cycle
 
-extension HomeViewController{
+extension CompaniesController{
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
     initialSetup()
+    getCompanies()
   }
   
 }
 
 //MARK: Initial setup
 
-extension HomeViewController{
+extension CompaniesController{
   
   fileprivate func initialSetup(){
     navigationItem.title = "Companies"
     view.backgroundColor = Palette.viewDarkBackgroundColor
-    addButtonsToNavigationTem()
+    addButtonsToNavigationItem()
     setupViews()
   }
   
-  fileprivate func addButtonsToNavigationTem(){
+  fileprivate func addButtonsToNavigationItem(){
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetBtnTapped))
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(plusBtnTapped))
   }
@@ -73,7 +76,7 @@ extension HomeViewController{
 
 //MARK: Handling methods
 
-extension HomeViewController{
+extension CompaniesController{
   
   @objc
   fileprivate func resetBtnTapped(){
@@ -82,14 +85,33 @@ extension HomeViewController{
   
   @objc
   fileprivate func plusBtnTapped(){
-    print("PLUS")
+    presentNewCompanyController()
+  }
+  
+}
+
+//MARK: Private methods
+
+extension CompaniesController{
+  
+  fileprivate func getCompanies(){
+    let apple = Company(name: "Apple", founded: Date())
+    let google = Company(name: "Google", founded: Date())
+    companies.append(apple)
+    companies.append(google)
+    tableView.reloadData()
+  }
+  
+  fileprivate func presentNewCompanyController(){
+    let newCompanyController = CreateCompanyController()
+    present(UINavigationController(rootViewController: newCompanyController), animated: true, completion: nil)
   }
   
 }
 
 //MARK: UITableViewDelegate
 
-extension HomeViewController: UITableViewDelegate{
+extension CompaniesController: UITableViewDelegate{
   
   func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
     let header = UIView()
@@ -105,14 +127,15 @@ extension HomeViewController: UITableViewDelegate{
 
 //MARK: UITableViewDataSource
 
-extension HomeViewController: UITableViewDataSource{
+extension CompaniesController: UITableViewDataSource{
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return companies.count
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.mainCell, for: indexPath) as! CompanyCell
+    cell.company = companies[indexPath.row]
     return cell
   }
   
@@ -120,7 +143,7 @@ extension HomeViewController: UITableViewDataSource{
 
 //MARK: Constants
 
-extension HomeViewController{
+extension CompaniesController{
   
   fileprivate struct Identifiers{
     static let mainCell = "mainCell"
