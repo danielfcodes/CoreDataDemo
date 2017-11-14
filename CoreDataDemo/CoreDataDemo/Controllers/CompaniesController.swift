@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompaniesController: UIViewController {
+class CompaniesController: UIViewController{
 
   fileprivate lazy var tableView: UITableView = {
     let tv = UITableView()
@@ -44,11 +44,11 @@ extension CompaniesController{
   fileprivate func initialSetup(){
     navigationItem.title = "Companies"
     view.backgroundColor = Palette.viewDarkBackgroundColor
-    addButtonsToNavigationItem()
+    addBarButtonItems()
     setupViews()
   }
   
-  fileprivate func addButtonsToNavigationItem(){
+  fileprivate func addBarButtonItems(){
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetBtnTapped))
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(plusBtnTapped))
   }
@@ -103,8 +103,20 @@ extension CompaniesController{
   }
   
   fileprivate func presentNewCompanyController(){
-    let newCompanyController = CreateCompanyController()
-    present(UINavigationController(rootViewController: newCompanyController), animated: true, completion: nil)
+    let createCompanyController = CreateCompanyController()
+    createCompanyController.delegate = self
+    present(UINavigationController(rootViewController: createCompanyController), animated: true, completion: nil)
+  }
+  
+}
+
+//MARK: CreateCompanyDelegate
+
+extension CompaniesController: CreateCompanyDelegate{
+  
+  func createCompanyDidSave(createCompanyController: CreateCompanyController, company: Company) {
+    companies.append(company)
+    tableView.reloadData()
   }
   
 }

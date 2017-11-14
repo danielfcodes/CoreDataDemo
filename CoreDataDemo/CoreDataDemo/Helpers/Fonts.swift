@@ -11,5 +11,6 @@ import Foundation
 struct Fonts{
   
   static let defaultFontForTitles = "Avenir-Medium"
+  static let defaultFontForLabels = "Avenir-Roman"
   
 }
