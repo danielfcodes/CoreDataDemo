@@ -21,7 +21,7 @@ class CompanyCell: UITableViewCell{
     return label
   }()
   
-  var company: Company!{
+  var viewModel: CompanyCellViewModel!{
     didSet{
       fillUI()
     }
@@ -51,7 +51,7 @@ class CompanyCell: UITableViewCell{
   //MARK: Private methods
   
   fileprivate func fillUI(){
-    companyNameLabel.text = company.name
+    companyNameLabel.text = viewModel.companyName
   }
   
 }

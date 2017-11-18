@@ -18,6 +18,11 @@
 		4C3288B31FB7ECB000749988 /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B21FB7ECB000749988 /* Sizes.swift */; };
 		4C3288B61FB7ED3B00749988 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B51FB7ED3B00749988 /* Company.swift */; };
 		4C6DCC7D1FB8CC390012FA12 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DCC7C1FB8CC390012FA12 /* CreateCompanyController.swift */; };
+		4C8A3D2F1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D2D1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld */; };
+		4C8A3D321FC0B15800B216E6 /* CompaniesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D311FC0B15800B216E6 /* CompaniesViewModel.swift */; };
+		4C8A3D341FC0B16E00B216E6 /* CreateCompanyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D331FC0B16E00B216E6 /* CreateCompanyViewModel.swift */; };
+		4C8A3D361FC0B4EA00B216E6 /* CompanyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D351FC0B4EA00B216E6 /* CompanyCellViewModel.swift */; };
+		4C8A3D381FC0BF0600B216E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D371FC0BF0600B216E6 /* CoreDataManager.swift */; };
 		4CAA01771FBA9E3A00D16E19 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA01761FBA9E3900D16E19 /* Alertable.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +40,11 @@
 		4C3288B21FB7ECB000749988 /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
 		4C3288B51FB7ED3B00749988 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		4C6DCC7C1FB8CC390012FA12 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
+		4C8A3D2E1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		4C8A3D311FC0B15800B216E6 /* CompaniesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesViewModel.swift; sourceTree = "<group>"; };
+		4C8A3D331FC0B16E00B216E6 /* CreateCompanyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyViewModel.swift; sourceTree = "<group>"; };
+		4C8A3D351FC0B4EA00B216E6 /* CompanyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCellViewModel.swift; sourceTree = "<group>"; };
+		4C8A3D371FC0BF0600B216E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4CAA01761FBA9E3900D16E19 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,11 +78,12 @@
 		4C3288931FB7DC5300749988 /* CoreDataDemo */ = {
 			isa = PBXGroup;
 			children = (
+				4C8A3D2C1FC0AFD300B216E6 /* Persistence */,
 				4C3288A61FB7E1C700749988 /* Helpers */,
 				4C3288AC1FB7E33E00749988 /* Resources */,
 				4C3288B41FB7ED2800749988 /* Models */,
+				4C8A3D301FC0B13E00B216E6 /* ViewModels */,
 				4C3288AA1FB7E33200749988 /* Views */,
-				4C3288A91FB7E32A00749988 /* Controllers */,
 				4C3288941FB7DC5300749988 /* AppDelegate.swift */,
 				4C3288A01FB7DC5300749988 /* Info.plist */,
 			);
@@ -102,6 +113,7 @@
 		4C3288AA1FB7E33200749988 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4C3288A91FB7E32A00749988 /* Controllers */,
 				4C3288AB1FB7E33700749988 /* Storyboards */,
 				4C3288AD1FB7E7DF00749988 /* Cells */,
 			);
@@ -139,6 +151,25 @@
 				4C3288B51FB7ED3B00749988 /* Company.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4C8A3D2C1FC0AFD300B216E6 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				4C8A3D2D1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld */,
+				4C8A3D371FC0BF0600B216E6 /* CoreDataManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
+		4C8A3D301FC0B13E00B216E6 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				4C8A3D311FC0B15800B216E6 /* CompaniesViewModel.swift */,
+				4C8A3D351FC0B4EA00B216E6 /* CompanyCellViewModel.swift */,
+				4C8A3D331FC0B16E00B216E6 /* CreateCompanyViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		4CAA01781FBA9E3D00D16E19 /* Protocols */ = {
@@ -223,12 +254,17 @@
 			files = (
 				4CAA01771FBA9E3A00D16E19 /* Alertable.swift in Sources */,
 				4C3288B31FB7ECB000749988 /* Sizes.swift in Sources */,
+				4C8A3D361FC0B4EA00B216E6 /* CompanyCellViewModel.swift in Sources */,
+				4C8A3D341FC0B16E00B216E6 /* CreateCompanyViewModel.swift in Sources */,
 				4C3288A81FB7E1D100749988 /* Palette.swift in Sources */,
 				4C3288B11FB7EBCD00749988 /* Fonts.swift in Sources */,
+				4C8A3D2F1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld in Sources */,
 				4C3288971FB7DC5300749988 /* CompaniesController.swift in Sources */,
 				4C3288B61FB7ED3B00749988 /* Company.swift in Sources */,
+				4C8A3D321FC0B15800B216E6 /* CompaniesViewModel.swift in Sources */,
 				4C3288951FB7DC5300749988 /* AppDelegate.swift in Sources */,
 				4C3288AF1FB7E7F100749988 /* CompanyCell.swift in Sources */,
+				4C8A3D381FC0BF0600B216E6 /* CoreDataManager.swift in Sources */,
 				4C6DCC7D1FB8CC390012FA12 /* CreateCompanyController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +450,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		4C8A3D2D1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				4C8A3D2E1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 4C8A3D2E1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 4C3288891FB7DC5300749988 /* Project object */;
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CreateCompanyDelegate: class{
-  func createCompanyDidSave(createCompanyController: CreateCompanyController, company: Company)
+  func createCompanyDidSave(createCompanyController: CreateCompanyController)
 }
 
 class CreateCompanyController: UIViewController, Alertable{
@@ -38,7 +38,7 @@ class CreateCompanyController: UIViewController, Alertable{
   }()
   
   weak var delegate: CreateCompanyDelegate?
-  
+  var viewModel: CreateCompanyViewModel!
 }
 
 //MARK: Life cycle
@@ -115,8 +115,9 @@ extension CreateCompanyController{
       self.createDefaultAlert(message: "Favor de llenar todos los campos")
       return
     }
-    let newCompany = Company(name: name, founded: Date())
-    delegate?.createCompanyDidSave(createCompanyController: self, company: newCompany)
+    
+    viewModel.saveCompany(name: name)
+    delegate?.createCompanyDidSave(createCompanyController: self)
     dismiss(animated: true, completion: nil)
   }
   

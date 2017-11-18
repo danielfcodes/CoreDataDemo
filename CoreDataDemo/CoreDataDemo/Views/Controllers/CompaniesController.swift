@@ -20,8 +20,7 @@ class CompaniesController: UIViewController{
     return tv
   }()
   
-  fileprivate var companies: [Company] = []
-
+  var viewModel: CompaniesViewModel!
 }
 
 //MARK: Life cycle
@@ -32,7 +31,8 @@ extension CompaniesController{
     super.viewDidLoad()
     
     initialSetup()
-    getCompanies()
+    binding()
+    viewModel.getCompanies()
   }
   
 }
@@ -94,17 +94,16 @@ extension CompaniesController{
 
 extension CompaniesController{
   
-  fileprivate func getCompanies(){
-    let apple = Company(name: "Apple", founded: Date())
-    let google = Company(name: "Google", founded: Date())
-    companies.append(apple)
-    companies.append(google)
-    tableView.reloadData()
+  fileprivate func binding(){
+    viewModel.didLoadCompanies = { [weak self] in
+      self?.tableView.reloadData()
+    }
   }
   
   fileprivate func presentNewCompanyController(){
     let createCompanyController = CreateCompanyController()
     createCompanyController.delegate = self
+    createCompanyController.viewModel = CreateCompanyViewModel()
     present(UINavigationController(rootViewController: createCompanyController), animated: true, completion: nil)
   }
   
@@ -114,9 +113,8 @@ extension CompaniesController{
 
 extension CompaniesController: CreateCompanyDelegate{
   
-  func createCompanyDidSave(createCompanyController: CreateCompanyController, company: Company) {
-    companies.append(company)
-    tableView.reloadData()
+  func createCompanyDidSave(createCompanyController: CreateCompanyController) {
+    viewModel.getCompanies()
   }
   
 }
@@ -142,12 +140,12 @@ extension CompaniesController: UITableViewDelegate{
 extension CompaniesController: UITableViewDataSource{
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return companies.count
+    return viewModel.companiesCount
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.mainCell, for: indexPath) as! CompanyCell
-    cell.company = companies[indexPath.row]
+    cell.viewModel = viewModel.viewModelForCell(at: indexPath.row)
     return cell
   }
   
