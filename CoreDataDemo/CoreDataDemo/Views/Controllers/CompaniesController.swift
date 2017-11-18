@@ -133,6 +133,21 @@ extension CompaniesController: UITableViewDelegate{
     return 50
   }
   
+  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    
+    let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
+      print("Edit company")
+    }
+    
+    editAction.backgroundColor = Palette.viewDarkBackgroundColor
+    
+    let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){ (action, sourceView, actionPerformed) in
+      self.viewModel.deleteCompany(at: indexPath.row)
+    }
+    
+    return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+  }
+  
 }
 
 //MARK: UITableViewDataSource

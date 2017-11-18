@@ -44,4 +44,16 @@ extension CompaniesViewModel{
     return CompanyCellViewModel(company: companies[index])
   }
   
+  func deleteCompany(at index: Int){
+    let company = companies[index]
+    let context = CoreDataManager.shared.viewContext
+    context.delete(company)
+    do{
+      try context.save()
+      companies.remove(at: index)
+    }catch let err{
+      print("Failed to remove company \(err.localizedDescription)")
+    }
+  }
+  
 }
