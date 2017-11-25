@@ -10,7 +10,7 @@ import UIKit
 
 class CompaniesController: UIViewController{
 
-  fileprivate lazy var tableView: UITableView = {
+  private lazy var tableView: UITableView = {
     let tv = UITableView()
     tv.translatesAutoresizingMaskIntoConstraints = false
     tv.delegate = self
@@ -41,23 +41,23 @@ extension CompaniesController{
 
 extension CompaniesController{
   
-  fileprivate func initialSetup(){
+  private func initialSetup(){
     navigationItem.title = "Companies"
     view.backgroundColor = Palette.viewDarkBackgroundColor
     addBarButtonItems()
     setupViews()
   }
   
-  fileprivate func addBarButtonItems(){
+  private func addBarButtonItems(){
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Reset", style: .plain, target: self, action: #selector(resetBtnTapped))
     navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "plus"), style: .plain, target: self, action: #selector(plusBtnTapped))
   }
   
-  fileprivate func setupViews(){
+  private func setupViews(){
     setupTableView()
   }
   
-  fileprivate func setupTableView(){
+  private func setupTableView(){
     view.addSubview(tableView)
     
     tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -68,7 +68,7 @@ extension CompaniesController{
     addTableViewFooter()
   }
   
-  fileprivate func addTableViewFooter(){
+  private func addTableViewFooter(){
     tableView.tableFooterView = UIView()
   }
   
@@ -79,12 +79,12 @@ extension CompaniesController{
 extension CompaniesController{
   
   @objc
-  fileprivate func resetBtnTapped(){
+  private func resetBtnTapped(){
     print("reset")
   }
   
   @objc
-  fileprivate func plusBtnTapped(){
+  private func plusBtnTapped(){
     presentNewCompanyController()
   }
   
@@ -94,13 +94,13 @@ extension CompaniesController{
 
 extension CompaniesController{
   
-  fileprivate func makeBindings(){
+  private func makeBindings(){
     viewModel.didLoadCompanies = { [weak self] indexForDelete in
       self?.reloadTableView(indexForDelete: indexForDelete)
     }
   }
   
-  fileprivate func reloadTableView(indexForDelete: Int?){
+  private func reloadTableView(indexForDelete: Int?){
     if let indexForDelete = indexForDelete{
       let indexPath = IndexPath(row: indexForDelete, section: 0)
       tableView.deleteRows(at: [indexPath], with: .fade)
@@ -109,7 +109,7 @@ extension CompaniesController{
     }
   }
   
-  fileprivate func presentNewCompanyController(){
+  private func presentNewCompanyController(){
     let createCompanyController = CreateCompanyController()
     createCompanyController.delegate = self
     createCompanyController.viewModel = CreateCompanyViewModel()
@@ -179,7 +179,7 @@ extension CompaniesController: UITableViewDataSource{
 
 extension CompaniesController{
   
-  fileprivate struct Identifiers{
+  private struct Identifiers{
     static let mainCell = "mainCell"
   }
   
