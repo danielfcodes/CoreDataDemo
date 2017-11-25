@@ -31,7 +31,7 @@ extension CompaniesController{
     super.viewDidLoad()
     
     initialSetup()
-    binding()
+    makeBindings()
     viewModel.getCompanies()
   }
   
@@ -94,9 +94,18 @@ extension CompaniesController{
 
 extension CompaniesController{
   
-  fileprivate func binding(){
-    viewModel.didLoadCompanies = { [weak self] in
-      self?.tableView.reloadData()
+  fileprivate func makeBindings(){
+    viewModel.didLoadCompanies = { [weak self] indexForDelete in
+      self?.reloadTableView(indexForDelete: indexForDelete)
+    }
+  }
+  
+  fileprivate func reloadTableView(indexForDelete: Int?){
+    if let indexForDelete = indexForDelete{
+      let indexPath = IndexPath(row: indexForDelete, section: 0)
+      tableView.deleteRows(at: [indexPath], with: .fade)
+    }else{
+      tableView.reloadData()
     }
   }
   
@@ -133,19 +142,19 @@ extension CompaniesController: UITableViewDelegate{
     return 50
   }
   
-  func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+  func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
-    let editAction = UIContextualAction(style: .normal, title: "Edit") { (_, _, _) in
-      print("Edit company")
+    let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
+      print("EDIT")
     }
     
     editAction.backgroundColor = Palette.viewDarkBackgroundColor
     
-    let deleteAction = UIContextualAction(style: .destructive, title: "Delete"){ (action, sourceView, actionPerformed) in
+    let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (action, indexPath) in
       self.viewModel.deleteCompany(at: indexPath.row)
     }
     
-    return UISwipeActionsConfiguration(actions: [deleteAction, editAction])
+    return [deleteAction, editAction]
   }
   
 }

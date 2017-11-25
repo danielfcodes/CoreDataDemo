@@ -13,11 +13,13 @@ class CompaniesViewModel{
   
   fileprivate var companies: [Company] = []{
     didSet{
-      didLoadCompanies?()
+      didLoadCompanies?(indexForDelete)
+      indexForDelete = nil
     }
   }
   
-  var didLoadCompanies: (() -> Void)?
+  var didLoadCompanies: ((_ indexForDelete: Int?) -> Void)?
+  var indexForDelete: Int?
   
   //MARK: Interface
   
@@ -25,6 +27,9 @@ class CompaniesViewModel{
     return companies.count
   }
   
+  func viewModelForCell(at index: Int) -> CompanyCellViewModel{
+    return CompanyCellViewModel(company: companies[index])
+  }
 }
 
 extension CompaniesViewModel{
@@ -40,11 +45,8 @@ extension CompaniesViewModel{
     }
   }
   
-  func viewModelForCell(at index: Int) -> CompanyCellViewModel{
-    return CompanyCellViewModel(company: companies[index])
-  }
-  
   func deleteCompany(at index: Int){
+    indexForDelete = index
     let company = companies[index]
     let context = CoreDataManager.shared.viewContext
     context.delete(company)
