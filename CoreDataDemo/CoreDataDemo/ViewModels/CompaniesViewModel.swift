@@ -11,7 +11,7 @@ import CoreData
 
 class CompaniesViewModel{
   
-  fileprivate var companies: [Company] = []{
+  private var companies: [Company] = []{
     didSet{
       didLoadCompanies?(indexForDelete)
       indexForDelete = nil
@@ -29,6 +29,12 @@ class CompaniesViewModel{
   
   func viewModelForCell(at index: Int) -> CompanyCellViewModel{
     return CompanyCellViewModel(company: companies[index])
+  }
+  
+  func viewModelForCreateCompany(at index: Int) -> CreateCompanyViewModel{
+    let viewModel = CreateCompanyViewModel()
+    viewModel.company = companies[index]
+    return viewModel
   }
 }
 

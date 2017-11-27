@@ -38,7 +38,12 @@ class CreateCompanyController: UIViewController, Alertable, Successful{
   }()
   
   weak var delegate: CreateCompanyDelegate?
-  var viewModel: CreateCompanyViewModel!
+  var viewModel: CreateCompanyViewModel!{
+    didSet{
+      fillUI()
+    }
+  }
+  
   let containerSuccess = ContainerSuccess()
 }
 
@@ -60,7 +65,6 @@ extension CreateCompanyController{
   
   private func initialSetup(){
     view.backgroundColor = Palette.viewDarkBackgroundColor
-    navigationItem.title = "Create Company"
     addBarButtonItems()
     setupViews()
   }
@@ -122,7 +126,7 @@ extension CreateCompanyController{
     delegate?.createCompanyDidSave(createCompanyController: self)
     
     UIApplication.shared.beginIgnoringInteractionEvents()
-    showSuccess(message: "Compañía creada de manera exitosa") {
+    showSuccess(message: viewModel.successMessage) {
       UIApplication.shared.endIgnoringInteractionEvents()
       self.dismiss(animated: true, completion: nil)
     }
@@ -136,6 +140,11 @@ extension CreateCompanyController{
   
   private func dismissKeyboards(){
     nameTextField.resignFirstResponder()
+  }
+  
+  private func fillUI(){
+    navigationItem.title = viewModel.navigationTitle
+    nameTextField.text = viewModel.companyName
   }
   
 }
