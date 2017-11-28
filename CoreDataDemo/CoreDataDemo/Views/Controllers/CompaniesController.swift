@@ -142,6 +142,10 @@ extension CompaniesController: UITableViewDelegate{
     return 50
   }
   
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 100
+  }
+  
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
     let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in

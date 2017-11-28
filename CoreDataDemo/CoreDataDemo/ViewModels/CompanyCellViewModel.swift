@@ -22,4 +22,10 @@ class CompanyCellViewModel{
     return company.name
   }
   
+  var companyFounded: String{
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateStyle = .full
+    return company.founded == nil ? "" : dateFormatter.string(from: company.founded!)
+  }
+  
 }

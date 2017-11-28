@@ -13,11 +13,11 @@ class CreateCompanyViewModel{
   
   var company: Company?
   
-  func saveCompany(name: String){
+  func saveCompany(name: String, founded: Date){
     if company == nil{
-      createCompany(name: name)
+      createCompany(name: name, founded: founded)
     }else{
-      updateCompany(name: name)
+      updateCompany(name: name, founded: founded)
     }
   }
   
@@ -37,10 +37,11 @@ class CreateCompanyViewModel{
 
 extension CreateCompanyViewModel{
   
-  private func createCompany(name: String){
+  private func createCompany(name: String, founded: Date){
     let context = CoreDataManager.shared.viewContext
     let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
     company.setValue(name, forKey: "name")
+    company.setValue(founded, forKey: "founded")
     
     do{
       try context.save()
@@ -49,8 +50,9 @@ extension CreateCompanyViewModel{
     }
   }
   
-  private func updateCompany(name: String){
+  private func updateCompany(name: String, founded: Date){
     company?.name = name
+    company?.founded = founded
     let context = CoreDataManager.shared.viewContext
     
     do{

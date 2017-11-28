@@ -37,6 +37,13 @@ class CreateCompanyController: UIViewController, Alertable, Successful{
     return textField
   }()
   
+  private let datePicker: UIDatePicker = {
+    let dp = UIDatePicker()
+    dp.translatesAutoresizingMaskIntoConstraints = false
+    dp.datePickerMode = .date
+    return dp
+  }()
+  
   weak var delegate: CreateCompanyDelegate?
   var viewModel: CreateCompanyViewModel!{
     didSet{
@@ -78,6 +85,7 @@ extension CreateCompanyController{
     setupContainer()
     setupNameLabel()
     setupNameTextField()
+    setupDatePicker()
   }
   
   private func setupContainer(){
@@ -93,6 +101,7 @@ extension CreateCompanyController{
     nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
     nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
     nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
+    nameLabel.heightAnchor.constraint(equalToConstant: Sizes.defaultSizeForLabels).isActive = true
   }
   
   private func setupNameTextField(){
@@ -101,6 +110,14 @@ extension CreateCompanyController{
     nameTextField.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16).isActive = true
     nameTextField.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor).isActive = true
     nameTextField.heightAnchor.constraint(equalToConstant: Sizes.defaultSizeForTextFields).isActive = true
+  }
+  
+  private func setupDatePicker(){
+    container.addSubview(datePicker)
+    datePicker.topAnchor.constraint(equalTo: nameLabel.bottomAnchor).isActive = true
+    datePicker.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16).isActive = true
+    datePicker.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16).isActive = true
+    datePicker.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: 16).isActive = true
   }
   
 }
@@ -122,7 +139,7 @@ extension CreateCompanyController{
     }
     
     dismissKeyboards()
-    viewModel.saveCompany(name: name)
+    viewModel.saveCompany(name: name, founded: datePicker.date)
     delegate?.createCompanyDidSave(createCompanyController: self)
     
     UIApplication.shared.beginIgnoringInteractionEvents()

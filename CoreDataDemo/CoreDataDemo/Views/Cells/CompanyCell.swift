@@ -13,10 +13,15 @@ class CompanyCell: UITableViewCell{
   fileprivate let companyNameLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.backgroundColor = .white
     label.font = UIFont(name: Fonts.defaultFontForTitles, size: Sizes.defaultSizeForTitles)
-    label.text = "Apple"
-    label.backgroundColor = .clear
+    label.textColor = .white
+    return label
+  }()
+  
+  private let companyFoundedLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont(name: Fonts.defaultFontForLabels, size: Sizes.defaultSizeForLabels)
     label.textColor = .white
     return label
   }()
@@ -43,15 +48,21 @@ class CompanyCell: UITableViewCell{
   
   fileprivate func setupViews(){
     addSubview(companyNameLabel)
-    companyNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    addSubview(companyFoundedLabel)
+    companyNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor, constant: -8).isActive = true
     companyNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     companyNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+    
+    companyFoundedLabel.topAnchor.constraint(equalTo: companyNameLabel.bottomAnchor, constant: 8).isActive = true
+    companyFoundedLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+    companyFoundedLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
   }
   
   //MARK: Private methods
   
   fileprivate func fillUI(){
     companyNameLabel.text = viewModel.companyName
+    companyFoundedLabel.text = "Founded: \(viewModel.companyFounded)"
   }
   
 }
