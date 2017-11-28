@@ -28,4 +28,8 @@ class CompanyCellViewModel{
     return company.founded == nil ? "" : dateFormatter.string(from: company.founded!)
   }
   
+  var imageData: Data?{
+    return company.imageData
+  }
+  
 }

@@ -185,8 +185,11 @@ extension CreateCompanyController{
       return
     }
     
+    guard let image = companyImageView.image,
+      let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
+    
     dismissKeyboards()
-    viewModel.saveCompany(name: name, founded: datePicker.date)
+    viewModel.saveCompany(name: name, founded: datePicker.date, imageData: imageData)
     delegate?.createCompanyDidSave(createCompanyController: self)
     
     UIApplication.shared.beginIgnoringInteractionEvents()
@@ -219,17 +222,24 @@ extension CreateCompanyController{
     navigationItem.title = viewModel.navigationTitle
     nameTextField.text = viewModel.companyName
     datePicker.date = viewModel.companyFounded
+    
+    if let imageData = viewModel.imageData{
+      companyImageView.image = UIImage(data: imageData)
+    }
   }
   
 }
 
-//MARK:
+//MARK: UIImagePickerControllerDelegate
 
 extension CreateCompanyController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
   
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
-      companyImageView.image = image
+    if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
+      companyImageView.image = editedImage
+      userDidPickImage = true
+    }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
+      companyImageView.image = originalImage
       userDidPickImage = true
     }
     

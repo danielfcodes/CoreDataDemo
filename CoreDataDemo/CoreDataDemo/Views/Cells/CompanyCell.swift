@@ -15,7 +15,6 @@ class CompanyCell: UITableViewCell{
     iv.translatesAutoresizingMaskIntoConstraints = false
     iv.contentMode = .scaleAspectFill
     iv.layer.cornerRadius = 40
-    iv.backgroundColor = .green
     iv.clipsToBounds = true
     return iv
   }()
@@ -81,6 +80,10 @@ class CompanyCell: UITableViewCell{
   private func fillUI(){
     companyNameLabel.text = viewModel.companyName
     companyFoundedLabel.text = "Founded: \(viewModel.companyFounded)"
+    
+    if let imageData = viewModel.imageData{
+      companyImageView.image = UIImage(data: imageData)
+    }
   }
   
 }
