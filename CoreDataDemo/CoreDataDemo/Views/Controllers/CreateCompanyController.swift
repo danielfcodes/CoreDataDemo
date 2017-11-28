@@ -21,6 +21,29 @@ class CreateCompanyController: UIViewController, Alertable, Successful{
     return view
   }()
   
+  private let companyImageView: UIImageView = {
+    let iv = UIImageView()
+    iv.translatesAutoresizingMaskIntoConstraints = false
+    iv.image = #imageLiteral(resourceName: "select_photo_empty")
+    iv.contentMode = .scaleAspectFill
+    iv.layer.cornerRadius = 50
+    iv.clipsToBounds = true
+    return iv
+  }()
+  
+  private lazy var selectCompanyImageViewButton: UIButton = {
+    let button = UIButton(type: .system)
+    button.translatesAutoresizingMaskIntoConstraints = false
+    button.setTitle("Select Photo", for: .normal)
+    button.setTitleColor(Palette.viewDarkBackgroundColor, for: .normal)
+    button.backgroundColor = Palette.lightBlue
+    button.layer.cornerRadius = 10
+    button.layer.borderWidth = 1
+    button.layer.borderColor = Palette.viewDarkBackgroundColor.cgColor
+    button.addTarget(self, action: #selector(selectCompanyImageViewButtonTapped), for: .touchUpInside)
+    return button
+  }()
+  
   private let nameLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +67,7 @@ class CreateCompanyController: UIViewController, Alertable, Successful{
     return dp
   }()
   
+  private var userDidPickImage = false
   weak var delegate: CreateCompanyDelegate?
   var viewModel: CreateCompanyViewModel!{
     didSet{
@@ -83,6 +107,8 @@ extension CreateCompanyController{
   
   private func setupViews(){
     setupContainer()
+    setupCompanyImageView()
+    setupCompanyImageViewButton()
     setupNameLabel()
     setupNameTextField()
     setupDatePicker()
@@ -93,12 +119,28 @@ extension CreateCompanyController{
     container.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
     container.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     container.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-    container.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5).isActive = true
+    container.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.7).isActive = true
+  }
+  
+  private func setupCompanyImageView(){
+    container.addSubview(companyImageView)
+    companyImageView.topAnchor.constraint(equalTo: container.topAnchor, constant: 16).isActive = true
+    companyImageView.centerXAnchor.constraint(equalTo: container.centerXAnchor).isActive = true
+    companyImageView.heightAnchor.constraint(equalToConstant: 100).isActive = true
+    companyImageView.widthAnchor.constraint(equalTo: companyImageView.heightAnchor, multiplier: 1).isActive = true
+  }
+  
+  private func setupCompanyImageViewButton(){
+    container.addSubview(selectCompanyImageViewButton)
+    selectCompanyImageViewButton.topAnchor.constraint(equalTo: companyImageView.bottomAnchor, constant: 16).isActive = true
+    selectCompanyImageViewButton.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 16).isActive = true
+    selectCompanyImageViewButton.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -16).isActive = true
+    selectCompanyImageViewButton.heightAnchor.constraint(equalToConstant: Sizes.defaultSizeForButtons).isActive = true
   }
   
   private func setupNameLabel(){
     container.addSubview(nameLabel)
-    nameLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 16).isActive = true
+    nameLabel.topAnchor.constraint(equalTo: selectCompanyImageViewButton.bottomAnchor, constant: 16).isActive = true
     nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16).isActive = true
     nameLabel.widthAnchor.constraint(equalToConstant: 100).isActive = true
     nameLabel.heightAnchor.constraint(equalToConstant: Sizes.defaultSizeForLabels).isActive = true
@@ -138,6 +180,11 @@ extension CreateCompanyController{
       return
     }
     
+    guard userDidPickImage else {
+      self.createDefaultAlert(message: "Debes escoger una imagen para la compañia")
+      return
+    }
+    
     dismissKeyboards()
     viewModel.saveCompany(name: name, founded: datePicker.date)
     delegate?.createCompanyDidSave(createCompanyController: self)
@@ -147,6 +194,15 @@ extension CreateCompanyController{
       UIApplication.shared.endIgnoringInteractionEvents()
       self.dismiss(animated: true, completion: nil)
     }
+  }
+  
+  @objc
+  private func selectCompanyImageViewButtonTapped(){
+    let picker = UIImagePickerController()
+    picker.delegate = self
+    picker.sourceType = .photoLibrary
+    picker.allowsEditing = true
+    present(picker, animated: true, completion: nil)
   }
   
 }
@@ -163,6 +219,25 @@ extension CreateCompanyController{
     navigationItem.title = viewModel.navigationTitle
     nameTextField.text = viewModel.companyName
     datePicker.date = viewModel.companyFounded
+  }
+  
+}
+
+//MARK:
+
+extension CreateCompanyController: UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+  
+  func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+      companyImageView.image = image
+      userDidPickImage = true
+    }
+    
+    dismiss(animated: true, completion: nil)
+  }
+  
+  func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    picker.dismiss(animated: true, completion: nil)
   }
   
 }
