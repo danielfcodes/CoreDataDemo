@@ -12,7 +12,7 @@ class CoreDataManager{
   
   static let shared = CoreDataManager()
   
-  fileprivate var persistentContainer: NSPersistentContainer = {
+  private var persistentContainer: NSPersistentContainer = {
     let pc = NSPersistentContainer(name: "CoreDataModel")
     pc.loadPersistentStores { (storeDescription, error) in
       

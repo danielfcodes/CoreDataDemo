@@ -21,6 +21,8 @@ class CreateCompanyViewModel{
     }
   }
   
+  //MARK: Interface
+  
   var navigationTitle: String{
     return company != nil ? "Edit Company" : "Create Company"
   }
@@ -31,6 +33,10 @@ class CreateCompanyViewModel{
   
   var companyName: String?{
     return company?.name
+  }
+  
+  var companyFounded: Date{
+    return company != nil ? company!.founded! : Date()
   }
   
 }

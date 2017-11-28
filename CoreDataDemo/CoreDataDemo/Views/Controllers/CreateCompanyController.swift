@@ -162,6 +162,7 @@ extension CreateCompanyController{
   private func fillUI(){
     navigationItem.title = viewModel.navigationTitle
     nameTextField.text = viewModel.companyName
+    datePicker.date = viewModel.companyFounded
   }
   
 }

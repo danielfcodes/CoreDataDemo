@@ -10,7 +10,7 @@ import Foundation
 
 class CompanyCellViewModel{
   
-  fileprivate let company: Company
+  private let company: Company
   
   init(company: Company) {
     self.company = company
@@ -24,7 +24,7 @@ class CompanyCellViewModel{
   
   var companyFounded: String{
     let dateFormatter = DateFormatter()
-    dateFormatter.dateStyle = .full
+    dateFormatter.dateFormat = "MMM dd, yyyy"
     return company.founded == nil ? "" : dateFormatter.string(from: company.founded!)
   }
   

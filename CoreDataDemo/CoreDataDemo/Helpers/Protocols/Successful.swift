@@ -45,7 +45,7 @@ extension Successful where Self: UIViewController{
 
 class ContainerSuccess: ShadowView{
   
-  fileprivate let successLabel: UILabel = {
+  private let successLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.text = "Success"
@@ -79,7 +79,7 @@ class ContainerSuccess: ShadowView{
     fatalError("Error coder on ContainerSuccess")
   }
   
-  fileprivate func setupLabels(){
+  private func setupLabels(){
     addSubview(successLabel)
     addSubview(messageLabel)
     
