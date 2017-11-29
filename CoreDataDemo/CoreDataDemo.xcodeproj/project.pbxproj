@@ -25,6 +25,7 @@
 		4C8A3D361FC0B4EA00B216E6 /* CompanyCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D351FC0B4EA00B216E6 /* CompanyCellViewModel.swift */; };
 		4C8A3D381FC0BF0600B216E6 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8A3D371FC0BF0600B216E6 /* CoreDataManager.swift */; };
 		4CAA01771FBA9E3A00D16E19 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CAA01761FBA9E3900D16E19 /* Alertable.swift */; };
+		974F03101FCE4F1A001B16D9 /* UnderlinedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 974F030F1FCE4F1A001B16D9 /* UnderlinedLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		4C8A3D351FC0B4EA00B216E6 /* CompanyCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCellViewModel.swift; sourceTree = "<group>"; };
 		4C8A3D371FC0BF0600B216E6 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		4CAA01761FBA9E3900D16E19 /* Alertable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
+		974F030F1FCE4F1A001B16D9 /* UnderlinedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlinedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				4C3288A91FB7E32A00749988 /* Controllers */,
 				4C3288AD1FB7E7DF00749988 /* Cells */,
 				4C770B951FCA346A0030DF0D /* ShadowView.swift */,
+				974F030F1FCE4F1A001B16D9 /* UnderlinedLabel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				4C8A3D321FC0B15800B216E6 /* CompaniesViewModel.swift in Sources */,
 				4C3288951FB7DC5300749988 /* AppDelegate.swift in Sources */,
 				4C3288AF1FB7E7F100749988 /* CompanyCell.swift in Sources */,
+				974F03101FCE4F1A001B16D9 /* UnderlinedLabel.swift in Sources */,
 				4C770B961FCA346A0030DF0D /* ShadowView.swift in Sources */,
 				4C770B761FC9E6D40030DF0D /* Successful.swift in Sources */,
 				4C8A3D381FC0BF0600B216E6 /* CoreDataManager.swift in Sources */,

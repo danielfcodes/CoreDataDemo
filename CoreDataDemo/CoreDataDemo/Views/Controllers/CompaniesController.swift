@@ -138,7 +138,7 @@ extension CompaniesController: UITableViewDelegate{
   }
   
   func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    let label = UILabel()
+    let label = UnderlinedLabel()
     label.text = "No companies available"
     label.textColor = .white
     label.font = UIFont(name: Fonts.defaultFontForTitles, size: Sizes.defaultSizeForTitles)
