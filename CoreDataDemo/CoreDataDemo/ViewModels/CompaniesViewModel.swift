@@ -13,13 +13,13 @@ class CompaniesViewModel{
   
   private var companies: [Company] = []{
     didSet{
-      didLoadCompanies?(indexForDelete)
-      indexForDelete = nil
+      didLoadCompanies?(indexesForDelete)
+      indexesForDelete.removeAll()
     }
   }
   
-  var didLoadCompanies: ((_ indexForDelete: Int?) -> Void)?
-  var indexForDelete: Int?
+  var didLoadCompanies: ((_ indexesForDelete: [IndexPath]) -> Void)?
+  var indexesForDelete: [IndexPath] = []
   
   //MARK: Interface
   
@@ -52,7 +52,8 @@ extension CompaniesViewModel{
   }
   
   func deleteCompany(at index: Int){
-    indexForDelete = index
+    fillIndexesForDelete(with: index)
+    
     let company = companies[index]
     let context = CoreDataManager.shared.viewContext
     context.delete(company)
@@ -61,6 +62,32 @@ extension CompaniesViewModel{
       companies.remove(at: index)
     }catch let err{
       print("Failed to remove company \(err.localizedDescription)")
+    }
+  }
+  
+  func deleteCompanies(){
+    fillIndexesForDelete()
+    let context  = CoreDataManager.shared.viewContext
+    let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: Company.fetchRequest())
+    
+    do{
+      try context.execute(batchDeleteRequest)
+      companies.removeAll()
+    }catch let err{
+      print("Failed to remove all companies \(err.localizedDescription)")
+    }
+    
+  }
+  
+  private func fillIndexesForDelete(with index: Int){
+    let indexPath = IndexPath(row: index, section: 0)
+    indexesForDelete.append(indexPath)
+  }
+  
+  private func fillIndexesForDelete(){
+    for (index, _) in companies.enumerated(){
+      let indexPath = IndexPath(row: index, section: 0)
+      indexesForDelete.append(indexPath)
     }
   }
   

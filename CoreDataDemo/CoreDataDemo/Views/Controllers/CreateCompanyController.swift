@@ -67,7 +67,6 @@ class CreateCompanyController: UIViewController, Alertable, Successful{
     return dp
   }()
   
-  private var userDidPickImage = false
   weak var delegate: CreateCompanyDelegate?
   var viewModel: CreateCompanyViewModel!{
     didSet{
@@ -180,11 +179,6 @@ extension CreateCompanyController{
       return
     }
     
-    guard userDidPickImage else {
-      self.createDefaultAlert(message: "Debes escoger una imagen para la compañia")
-      return
-    }
-    
     guard let image = companyImageView.image,
       let imageData = UIImageJPEGRepresentation(image, 0.8) else { return }
     
@@ -237,10 +231,8 @@ extension CreateCompanyController: UIImagePickerControllerDelegate, UINavigation
   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
     if let editedImage = info[UIImagePickerControllerEditedImage] as? UIImage{
       companyImageView.image = editedImage
-      userDidPickImage = true
     }else if let originalImage = info[UIImagePickerControllerOriginalImage] as? UIImage{
       companyImageView.image = originalImage
-      userDidPickImage = true
     }
     
     dismiss(animated: true, completion: nil)

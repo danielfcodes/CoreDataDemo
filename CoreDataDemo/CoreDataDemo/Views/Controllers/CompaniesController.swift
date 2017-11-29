@@ -17,6 +17,7 @@ class CompaniesController: UIViewController{
     tv.dataSource = self
     tv.backgroundColor = Palette.viewDarkBackgroundColor
     tv.register(CompanyCell.self, forCellReuseIdentifier: Identifiers.mainCell)
+    tv.separatorStyle = .none
     return tv
   }()
   
@@ -64,12 +65,6 @@ extension CompaniesController{
     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-    
-    addTableViewFooter()
-  }
-  
-  private func addTableViewFooter(){
-    tableView.tableFooterView = UIView()
   }
   
 }
@@ -80,7 +75,7 @@ extension CompaniesController{
   
   @objc
   private func resetBtnTapped(){
-    print("reset")
+    viewModel.deleteCompanies()
   }
   
   @objc
@@ -95,17 +90,21 @@ extension CompaniesController{
 extension CompaniesController{
   
   private func makeBindings(){
-    viewModel.didLoadCompanies = { [weak self] indexForDelete in
-      self?.reloadTableView(indexForDelete: indexForDelete)
+    viewModel.didLoadCompanies = { [weak self] indexesForDelete in
+      self?.reloadTableView(indexesForDelete: indexesForDelete)
     }
   }
   
-  private func reloadTableView(indexForDelete: Int?){
-    if let indexForDelete = indexForDelete{
-      let indexPath = IndexPath(row: indexForDelete, section: 0)
-      tableView.deleteRows(at: [indexPath], with: .fade)
-    }else{
+  private func reloadTableView(indexesForDelete: [IndexPath]){
+    if indexesForDelete.count == 0{
       tableView.reloadData()
+    }else if indexesForDelete.count == 1{
+      
+      guard let indexPath = indexesForDelete.first else { return }
+      tableView.deleteRows(at: [indexPath], with: .fade)
+      
+    }else{
+      tableView.deleteRows(at: indexesForDelete, with: .left)
     }
   }
   
@@ -136,6 +135,19 @@ extension CompaniesController: UITableViewDelegate{
     let header = UIView()
     header.backgroundColor = Palette.lightBlue
     return header
+  }
+  
+  func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    let label = UILabel()
+    label.text = "No companies available"
+    label.textColor = .white
+    label.font = UIFont(name: Fonts.defaultFontForTitles, size: Sizes.defaultSizeForTitles)
+    label.textAlignment = .center
+    return label
+  }
+
+  func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    return viewModel.companiesCount == 0 ? 100 : 0
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
