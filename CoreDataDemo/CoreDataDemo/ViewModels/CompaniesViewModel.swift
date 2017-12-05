@@ -36,6 +36,10 @@ class CompaniesViewModel{
     viewModel.company = companies[index]
     return viewModel
   }
+  
+  func viewModelForEmployee(at index: Int) -> EmployeesViewModel{
+    return EmployeesViewModel(company: companies[index])
+  }
 }
 
 extension CompaniesViewModel{

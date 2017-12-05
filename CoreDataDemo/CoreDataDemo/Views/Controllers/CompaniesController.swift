@@ -80,7 +80,7 @@ extension CompaniesController{
   
   @objc
   private func plusBtnTapped(){
-    presentNewCompanyController(willEdit: false, indexForEdit: nil)
+    goToCreateCompanyController(willEdit: false, indexForEdit: nil)
   }
   
 }
@@ -108,7 +108,7 @@ extension CompaniesController{
     }
   }
   
-  private func presentNewCompanyController(willEdit: Bool, indexForEdit: Int?){
+  private func goToCreateCompanyController(willEdit: Bool, indexForEdit: Int?){
     let createCompanyController = CreateCompanyController()
     createCompanyController.delegate = self
     createCompanyController.viewModel = willEdit ? viewModel.viewModelForCreateCompany(at: indexForEdit!) : CreateCompanyViewModel()
@@ -161,7 +161,7 @@ extension CompaniesController: UITableViewDelegate{
   func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
     
     let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (action, indexPath) in
-      self.presentNewCompanyController(willEdit: true, indexForEdit: indexPath.row)
+      self.goToCreateCompanyController(willEdit: true, indexForEdit: indexPath.row)
     }
     
     editAction.backgroundColor = Palette.viewDarkBackgroundColor
@@ -171,6 +171,12 @@ extension CompaniesController: UITableViewDelegate{
     }
     
     return [deleteAction, editAction]
+  }
+  
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let employeesController = EmployeesController()
+    employeesController.viewModel = viewModel.viewModelForEmployee(at: indexPath.row)
+    navigationController?.pushViewController(employeesController, animated: true)
   }
   
 }

@@ -95,11 +95,11 @@ extension CreateCompanyController{
   
   private func initialSetup(){
     view.backgroundColor = Palette.viewDarkBackgroundColor
-    addBarButtonItems()
+    setupBarButtons()
     setupViews()
   }
   
-  private func addBarButtonItems(){
+  private func setupBarButtons(){
     navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBtnTapped))
     navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveBtnTapped))
   }
