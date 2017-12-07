@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C0DF8811FD8EB0900715D9D /* CreateEmployeeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C0DF8801FD8EB0900715D9D /* CreateEmployeeViewModel.swift */; };
 		4C3288951FB7DC5300749988 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288941FB7DC5300749988 /* AppDelegate.swift */; };
 		4C3288971FB7DC5300749988 /* CompaniesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288961FB7DC5300749988 /* CompaniesController.swift */; };
 		4C32889C1FB7DC5300749988 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C32889B1FB7DC5300749988 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C0DF8801FD8EB0900715D9D /* CreateEmployeeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEmployeeViewModel.swift; sourceTree = "<group>"; };
 		4C3288911FB7DC5300749988 /* CoreDataDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreDataDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4C3288941FB7DC5300749988 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4C3288961FB7DC5300749988 /* CompaniesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompaniesController.swift; sourceTree = "<group>"; };
@@ -180,6 +182,7 @@
 				4C8A3D331FC0B16E00B216E6 /* CreateCompanyViewModel.swift */,
 				4CD45C7B1FD645AF006C144B /* EmployeesViewModel.swift */,
 				4CD45C7F1FD646A4006C144B /* EmployeeCellViewModel.swift */,
+				4C0DF8801FD8EB0900715D9D /* CreateEmployeeViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -269,6 +272,7 @@
 				4C8A3D361FC0B4EA00B216E6 /* CompanyCellViewModel.swift in Sources */,
 				4C8A3D341FC0B16E00B216E6 /* CreateCompanyViewModel.swift in Sources */,
 				4CD45C7C1FD645AF006C144B /* EmployeesViewModel.swift in Sources */,
+				4C0DF8811FD8EB0900715D9D /* CreateEmployeeViewModel.swift in Sources */,
 				4CD45C821FD6494F006C144B /* CreateEmployeeController.swift in Sources */,
 				4C3288A81FB7E1D100749988 /* Palette.swift in Sources */,
 				4C3288B11FB7EBCD00749988 /* Fonts.swift in Sources */,

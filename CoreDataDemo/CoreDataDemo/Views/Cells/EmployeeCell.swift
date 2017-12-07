@@ -50,7 +50,7 @@ class EmployeeCell: UITableViewCell{
   //MARK: Private methods
   
   private func fillUI(){
-    
+    employeeNameLabel.text = viewModel.employeeName
   }
   
 }

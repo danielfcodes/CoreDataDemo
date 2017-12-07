@@ -10,6 +10,16 @@ import Foundation
 
 class EmployeeCellViewModel{
   
+  private let employee: Employee
   
+  init(employee: Employee) {
+    self.employee = employee
+  }
+  
+  //MARK: Interface
+  
+  var employeeName: String{
+    return employee.name ?? ""
+  }
   
 }

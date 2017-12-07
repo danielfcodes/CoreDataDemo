@@ -115,6 +115,12 @@ extension CompaniesController{
     present(UINavigationController(rootViewController: createCompanyController), animated: true, completion: nil)
   }
   
+  private func goToEmployeesController(index: Int){
+    let employeesController = EmployeesController()
+    employeesController.viewModel = viewModel.viewModelForEmployee(at: index)
+    navigationController?.pushViewController(employeesController, animated: true)
+  }
+  
 }
 
 //MARK: CreateCompanyDelegate
@@ -147,7 +153,7 @@ extension CompaniesController: UITableViewDelegate{
   }
 
   func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-    return viewModel.companiesCount == 0 ? 100 : 0
+    return viewModel.numberOfRows == 0 ? 100 : 0
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -174,9 +180,7 @@ extension CompaniesController: UITableViewDelegate{
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let employeesController = EmployeesController()
-    employeesController.viewModel = viewModel.viewModelForEmployee(at: indexPath.row)
-    navigationController?.pushViewController(employeesController, animated: true)
+    goToEmployeesController(index: indexPath.row)
   }
   
 }
@@ -186,7 +190,7 @@ extension CompaniesController: UITableViewDelegate{
 extension CompaniesController: UITableViewDataSource{
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.companiesCount
+    return viewModel.numberOfRows
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

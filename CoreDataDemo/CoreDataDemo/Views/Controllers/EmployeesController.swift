@@ -36,6 +36,7 @@ extension EmployeesController{
   override func viewDidLoad() {
     super.viewDidLoad()
     initialSetup()
+    makeBindings()
   }
   
 }
@@ -74,7 +75,7 @@ extension EmployeesController{
   
   @objc
   private func plusBtnTapped(){
-    goToCreateEmployeeController()
+    goToCreateEmployeeController(willEdit: false)
   }
   
 }
@@ -83,15 +84,31 @@ extension EmployeesController{
 
 extension EmployeesController{
   
+  private func makeBindings(){
+    viewModel.employeesDidLoad = { [weak self] in
+      self?.tableView.reloadData()
+    }
+  }
+  
   private func fillUI(){
     navigationItem.title = viewModel.navigationTitle
   }
   
-  private func goToCreateEmployeeController(){
+  private func goToCreateEmployeeController(willEdit: Bool){
     let createEmployeeController = CreateEmployeeController()
-    //delegate
-    //Viewmodel
+    createEmployeeController.delegate = self
+    createEmployeeController.viewModel = CreateEmployeeViewModel()
     present(UINavigationController(rootViewController: createEmployeeController), animated: true, completion: nil)
+  }
+  
+}
+
+//MARK: CreateEmployeeControllerDelegate
+
+extension EmployeesController: CreateEmployeeControllerDelegate{
+  
+  func createEmployeeDidSave(_ createEmployeeController: CreateEmployeeController) {
+    viewModel.getEmployees()
   }
   
 }
@@ -109,12 +126,12 @@ extension EmployeesController: UITableViewDelegate{
 extension EmployeesController: UITableViewDataSource{
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return viewModel.numberOfRows
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeCell.identifier, for: indexPath) as! EmployeeCell
-//    cell.viewModel = viewModel.viewModelForCell(at: indexPath.row)
+    cell.viewModel = viewModel.viewModelForCell(at: indexPath.row)
     return cell
   }
   

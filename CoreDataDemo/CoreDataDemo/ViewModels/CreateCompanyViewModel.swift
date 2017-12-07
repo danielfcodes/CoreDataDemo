@@ -13,14 +13,6 @@ class CreateCompanyViewModel{
   
   var company: Company?
   
-  func saveCompany(name: String, founded: Date, imageData: Data){
-    if company == nil{
-      createCompany(name: name, founded: founded, imageData: imageData)
-    }else{
-      updateCompany(name: name, founded: founded, imageData: imageData)
-    }
-  }
-  
   //MARK: Interface
   
   var navigationTitle: String{
@@ -46,6 +38,14 @@ class CreateCompanyViewModel{
 }
 
 extension CreateCompanyViewModel{
+  
+  func saveCompany(name: String, founded: Date, imageData: Data){
+    if company == nil{
+      createCompany(name: name, founded: founded, imageData: imageData)
+    }else{
+      updateCompany(name: name, founded: founded, imageData: imageData)
+    }
+  }
   
   private func createCompany(name: String, founded: Date, imageData: Data){
     let context = CoreDataManager.shared.viewContext

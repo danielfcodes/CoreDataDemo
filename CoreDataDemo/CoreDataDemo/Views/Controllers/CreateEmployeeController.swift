@@ -8,7 +8,11 @@
 
 import UIKit
 
-class CreateEmployeeController: UIViewController{
+protocol CreateEmployeeControllerDelegate: class{
+  func createEmployeeDidSave(_ createEmployeeController: CreateEmployeeController)
+}
+
+class CreateEmployeeController: UIViewController, Successful{
   
   private let container: UIView = {
     let view = UIView()
@@ -33,6 +37,9 @@ class CreateEmployeeController: UIViewController{
     return textField
   }()
   
+  var viewModel: CreateEmployeeViewModel!
+  weak var delegate: CreateEmployeeControllerDelegate?
+  let containerSuccess = ContainerSuccess()
 }
 
 //MARK: Life cycle
@@ -51,7 +58,7 @@ extension CreateEmployeeController{
 extension CreateEmployeeController{
   
   private func initialSetup(){
-    navigationItem.title = "Create Employee"
+    navigationItem.title = viewModel.navigationTitle
     view.backgroundColor = Palette.viewDarkBackgroundColor
     setupBarButtons()
     setupViews()
@@ -105,7 +112,26 @@ extension CreateEmployeeController{
   
   @objc
   private func saveBtnTapped(){
+    guard let name = nameTextField.text, !name.isEmpty else { return }
+    dismissKeyboards()
+    viewModel.saveCompany(name: name)
+    delegate?.createEmployeeDidSave(self)
     
+    UIApplication.shared.beginIgnoringInteractionEvents()
+    showSuccess(message: viewModel.successMessage) {
+      UIApplication.shared.endIgnoringInteractionEvents()
+      self.dismiss(animated: true, completion: nil)
+    }
+  }
+  
+}
+
+//MARK: Private methods
+
+extension CreateEmployeeController{
+  
+  private func dismissKeyboards(){
+    nameTextField.resignFirstResponder()
   }
   
 }

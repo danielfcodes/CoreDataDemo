@@ -23,7 +23,7 @@ class CompaniesViewModel{
   
   //MARK: Interface
   
-  var companiesCount: Int{
+  var numberOfRows: Int{
     return companies.count
   }
   
