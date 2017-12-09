@@ -10,6 +10,12 @@ import CoreData
 
 class CreateEmployeeViewModel{
   
+  private let company: Company
+  
+  init(company: Company) {
+    self.company = company
+  }
+  
   var employee: Employee?
   
   //MARK: Interface
@@ -36,8 +42,13 @@ extension CreateEmployeeViewModel{
   
   private func createEmployee(name: String){
     let context = CoreDataManager.shared.viewContext
-    let employee = NSEntityDescription.insertNewObject(forEntityName: "Employee", into: context)
-    employee.setValue(name, forKey: "name")
+    let employee = Employee(context: context)
+    let employeeInformation = EmployeeInformation(context: context)
+    employeeInformation.taxId = "456"
+    
+    employee.name = name
+    employee.company = company
+    employee.employeeInformation = employeeInformation
     
     do{
       try context.save()

@@ -49,10 +49,10 @@ extension CreateCompanyViewModel{
   
   private func createCompany(name: String, founded: Date, imageData: Data){
     let context = CoreDataManager.shared.viewContext
-    let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context)
-    company.setValue(name, forKey: "name")
-    company.setValue(founded, forKey: "founded")
-    company.setValue(imageData, forKey: "imageData")
+    let company = NSEntityDescription.insertNewObject(forEntityName: "Company", into: context) as! Company
+    company.name = name
+    company.founded = founded
+    company.imageData = imageData
     
     do{
       try context.save()

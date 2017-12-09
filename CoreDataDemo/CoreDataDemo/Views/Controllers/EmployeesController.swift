@@ -97,7 +97,7 @@ extension EmployeesController{
   private func goToCreateEmployeeController(willEdit: Bool){
     let createEmployeeController = CreateEmployeeController()
     createEmployeeController.delegate = self
-    createEmployeeController.viewModel = CreateEmployeeViewModel()
+    createEmployeeController.viewModel = viewModel.viewModelForCreateEmployee()
     present(UINavigationController(rootViewController: createEmployeeController), animated: true, completion: nil)
   }
   
@@ -117,7 +117,9 @@ extension EmployeesController: CreateEmployeeControllerDelegate{
 
 extension EmployeesController: UITableViewDelegate{
   
-  
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return 100
+  }
   
 }
 

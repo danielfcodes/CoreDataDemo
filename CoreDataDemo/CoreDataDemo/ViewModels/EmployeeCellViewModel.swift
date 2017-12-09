@@ -22,4 +22,9 @@ class EmployeeCellViewModel{
     return employee.name ?? ""
   }
   
+  var taxId: String{
+    guard let taxId = employee.employeeInformation?.taxId else { return "" }
+    return "Tax ID: \(taxId)"
+  }
+  
 }

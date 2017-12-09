@@ -20,6 +20,14 @@ class EmployeeCell: UITableViewCell{
     return label
   }()
   
+  private let taxIdLabel: UILabel = {
+    let label = UILabel()
+    label.translatesAutoresizingMaskIntoConstraints = false
+    label.font = UIFont(name: Fonts.defaultFontForLabels, size: Sizes.defaultSizeForTitles)
+    label.textColor = .white
+    return label
+  }()
+  
   var viewModel: EmployeeCellViewModel!{
     didSet{
       fillUI()
@@ -42,15 +50,20 @@ class EmployeeCell: UITableViewCell{
   
   private func setupViews(){
     addSubview(employeeNameLabel)
+    addSubview(taxIdLabel)
     employeeNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     employeeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
     employeeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+    taxIdLabel.topAnchor.constraint(equalTo: employeeNameLabel.bottomAnchor, constant: 8).isActive = true
+    taxIdLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
+    taxIdLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
   }
   
   //MARK: Private methods
   
   private func fillUI(){
     employeeNameLabel.text = viewModel.employeeName
+    taxIdLabel.text = viewModel.taxId
   }
   
 }

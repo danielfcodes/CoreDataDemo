@@ -39,19 +39,17 @@ class EmployeesViewModel{
     return EmployeeCellViewModel(employee: employees[index])
   }
   
+  func viewModelForCreateEmployee() -> CreateEmployeeViewModel{
+    return CreateEmployeeViewModel(company: company)
+  }
+  
 }
 
 extension EmployeesViewModel{
   
   func getEmployees(){
-    let context = CoreDataManager.shared.viewContext
-    let fetchRequest = NSFetchRequest<Employee>(entityName: "Employee")
-    
-    do{
-      self.employees = try context.fetch(fetchRequest)
-    }catch let err{
-      print("Failed to fetch companies \(err.localizedDescription)")
-    }
+    guard let companyEmployees = company.employees?.allObjects as? [Employee] else { return }
+    employees = companyEmployees
   }
   
 }
