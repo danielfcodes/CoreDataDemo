@@ -32,21 +32,22 @@ class CreateEmployeeViewModel{
 
 extension CreateEmployeeViewModel{
   
-  func saveCompany(name: String){
+  func saveEmployee(name: String, birthday: Date, employeeType: String){
     if employee == nil{
-      createEmployee(name: name)
+      createEmployee(name: name, birthday: birthday, employeeType: employeeType)
     }else{
-      
+      //TODO: Update employee method
     }
   }
   
-  private func createEmployee(name: String){
+  private func createEmployee(name: String, birthday: Date, employeeType: String){
     let context = CoreDataManager.shared.viewContext
     let employee = Employee(context: context)
     let employeeInformation = EmployeeInformation(context: context)
-    employeeInformation.taxId = "456"
+    employeeInformation.birthday = birthday
     
     employee.name = name
+    employee.employeeType = employeeType
     employee.company = company
     employee.employeeInformation = employeeInformation
     

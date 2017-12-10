@@ -7,6 +7,7 @@
         <relationship name="employees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Employee" inverseName="company" inverseEntity="Employee" syncable="YES"/>
     </entity>
     <entity name="Employee" representedClassName="Employee" syncable="YES" codeGenerationType="class">
+        <attribute name="employeeType" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="company" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Company" inverseName="employees" inverseEntity="Company" syncable="YES"/>
         <relationship name="employeeAddress" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="EmployeeAddress" inverseName="employee" inverseEntity="EmployeeAddress" syncable="YES"/>
@@ -25,7 +26,7 @@
     </entity>
     <elements>
         <element name="Company" positionX="-252" positionY="-130" width="128" height="103"/>
-        <element name="Employee" positionX="-38" positionY="-144" width="128" height="103"/>
+        <element name="Employee" positionX="-38" positionY="-144" width="128" height="120"/>
         <element name="EmployeeAddress" positionX="-9" positionY="-15" width="128" height="105"/>
         <element name="EmployeeInformation" positionX="151" positionY="-144" width="128" height="88"/>
     </elements>

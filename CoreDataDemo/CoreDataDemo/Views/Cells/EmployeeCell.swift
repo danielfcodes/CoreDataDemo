@@ -20,7 +20,7 @@ class EmployeeCell: UITableViewCell{
     return label
   }()
   
-  private let taxIdLabel: UILabel = {
+  private let birthdayLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
     label.font = UIFont(name: Fonts.defaultFontForLabels, size: Sizes.defaultSizeForTitles)
@@ -28,6 +28,7 @@ class EmployeeCell: UITableViewCell{
     return label
   }()
   
+  var index: Int?
   var viewModel: EmployeeCellViewModel!{
     didSet{
       fillUI()
@@ -50,20 +51,20 @@ class EmployeeCell: UITableViewCell{
   
   private func setupViews(){
     addSubview(employeeNameLabel)
-    addSubview(taxIdLabel)
+    addSubview(birthdayLabel)
     employeeNameLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     employeeNameLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-    employeeNameLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
-    taxIdLabel.topAnchor.constraint(equalTo: employeeNameLabel.bottomAnchor, constant: 8).isActive = true
-    taxIdLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16).isActive = true
-    taxIdLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
+    birthdayLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+    birthdayLabel.leadingAnchor.constraint(equalTo: employeeNameLabel.trailingAnchor, constant: 16).isActive = true
+    birthdayLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16).isActive = true
   }
   
   //MARK: Private methods
   
   private func fillUI(){
-    employeeNameLabel.text = viewModel.employeeName
-    taxIdLabel.text = viewModel.taxId
+    guard let index = index else { return }
+    employeeNameLabel.text = viewModel.employeeName(at: index)
+    birthdayLabel.text = viewModel.birthday(at: index)
   }
   
 }

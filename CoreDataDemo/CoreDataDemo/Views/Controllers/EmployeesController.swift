@@ -118,7 +118,22 @@ extension EmployeesController: CreateEmployeeControllerDelegate{
 extension EmployeesController: UITableViewDelegate{
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return 100
+    return 50
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let label = HeaderLabel()
+    label.backgroundColor = Palette.lightBlue
+    label.textColor = Palette.viewDarkBackgroundColor
+    label.font = UIFont.boldSystemFont(ofSize: 16)
+    
+    label.text = viewModel.sectionTitle(section: section)
+    
+    return label
+  }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    return 50
   }
   
 }
@@ -127,13 +142,20 @@ extension EmployeesController: UITableViewDelegate{
 
 extension EmployeesController: UITableViewDataSource{
   
+  func numberOfSections(in tableView: UITableView) -> Int {
+    return viewModel.numberOfSections
+  }
+  
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return viewModel.numberOfRows
+    return viewModel.numberOfRowsIn(section: section)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: EmployeeCell.identifier, for: indexPath) as! EmployeeCell
-    cell.viewModel = viewModel.viewModelForCell(at: indexPath.row)
+    
+    let cellViewModel = viewModel.viewModelForCellIn(section: indexPath.section)
+    cell.index = indexPath.row
+    cell.viewModel = cellViewModel as! EmployeeCellViewModel
     return cell
   }
   
