@@ -12,7 +12,7 @@ class CoreDataManager{
   
   static let shared = CoreDataManager()
   
-  private var persistentContainer: NSPersistentContainer = {
+  var persistentContainer: NSPersistentContainer = {
     let pc = NSPersistentContainer(name: "CoreDataModel")
     pc.loadPersistentStores { (storeDescription, error) in
       
@@ -26,6 +26,16 @@ class CoreDataManager{
   
   var viewContext: NSManagedObjectContext{
     return persistentContainer.viewContext
+  }
+  
+  func saveMainContext(){
+    guard viewContext.hasChanges else { return }
+    
+    do{
+      try viewContext.save()
+    }catch let err{
+      fatalError("Error when saving mainContext \(err)")
+    }
   }
   
 }

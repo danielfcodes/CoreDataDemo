@@ -43,13 +43,13 @@ class CompaniesViewModel{
 }
 
 extension CompaniesViewModel{
-
+  
   func getCompanies(){
     let context = CoreDataManager.shared.viewContext
-    let fetchRequest = NSFetchRequest<Company>(entityName: "Company")
+    let request: NSFetchRequest<Company> = Company.fetchRequest()
     
     do{
-      self.companies = try context.fetch(fetchRequest)
+      self.companies = try context.fetch(request)
     }catch let err{
       print("Failed to fetch companies \(err.localizedDescription)")
     }
