@@ -134,16 +134,15 @@ extension CompaniesViewModel{
           employee.company = company
         })
         
-        do{
-          try privateContext.save()
-          try privateContext.parent?.save()
-          self.getCompanies()
-        }catch let err{
-          print("Failed to save companies: \(err)")
-        }
       })
       
-      
+      do{
+        try privateContext.save()
+        try privateContext.parent?.save()
+        self.getCompanies()
+      }catch let err{
+        print("Failed to save companies: \(err)")
+      }
     }
   }
   
