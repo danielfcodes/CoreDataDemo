@@ -23,7 +23,7 @@ class EmployeeCell: UITableViewCell{
   private let birthdayLabel: UILabel = {
     let label = UILabel()
     label.translatesAutoresizingMaskIntoConstraints = false
-    label.font = UIFont(name: Fonts.defaultFontForLabels, size: Sizes.defaultSizeForTitles)
+    label.font = UIFont(name: Fonts.defaultFontForLabels, size: Sizes.defaultSizeForLabels)
     label.textColor = .white
     return label
   }()

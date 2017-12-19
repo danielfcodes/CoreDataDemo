@@ -79,32 +79,6 @@ extension CompaniesController{
 extension CompaniesController{
   
   @objc
-  private func doWorkTapped(){
-    
-    CoreDataManager.shared.persistentContainer.performBackgroundTask({ (backgroundContext) in
-      
-      (0...10).forEach { (value) in
-        let company = Company(context: backgroundContext)
-        company.name = String(value)
-      }
-      
-      do{
-        try backgroundContext.save()
-        
-        DispatchQueue.main.async {
-          //fetch and populate array for tableView and then reload
-          self.tableView.reloadData()
-        }
-        
-      }catch let err{
-        print("faile saving: ", err)
-      }
-      
-    })
-    
-  }
-  
-  @objc
   private func pullToRefresh(){
     viewModel.getCompaniesFromNetwork()
     tableView.refreshControl?.endRefreshing()
