@@ -11,6 +11,12 @@ import CoreData
 
 class CompaniesViewModel{
   
+  private let companyService: CompanyService
+  
+  init(companyService: CompanyService) {
+    self.companyService = companyService
+  }
+  
   private var companies: [Company] = []{
     didSet{
       didLoadCompanies?(indexesForDelete)
@@ -92,6 +98,52 @@ extension CompaniesViewModel{
     for (index, _) in companies.enumerated(){
       let indexPath = IndexPath(row: index, section: 0)
       indexesForDelete.append(indexPath)
+    }
+  }
+  
+}
+
+//MARK: Networking methods
+
+extension CompaniesViewModel{
+  
+  func getCompaniesFromNetwork(){
+    
+    companyService.getCompanies { (apiCompanies) in
+      let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+      privateContext.parent = CoreDataManager.shared.viewContext
+      
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "MM/dd/yyyy"
+      
+      apiCompanies.forEach({ (apiCompany) in
+        
+        let company = Company(context: privateContext)
+        company.name = apiCompany.name
+        company.founded = dateFormatter.date(from: apiCompany.founded)
+        
+        apiCompany.employees?.forEach({ (apiEmployee) in
+          let employee = Employee(context: privateContext)
+          employee.name = apiEmployee.name
+          employee.employeeType = apiEmployee.type
+          
+          let employeeInformation = EmployeeInformation(context: privateContext)
+          employeeInformation.birthday = dateFormatter.date(from: apiEmployee.birthday)
+          
+          employee.employeeInformation = employeeInformation
+          employee.company = company
+        })
+        
+        do{
+          try privateContext.save()
+          try privateContext.parent?.save()
+          self.getCompanies()
+        }catch let err{
+          print("Failed to save companies: \(err)")
+        }
+      })
+      
+      
     }
   }
   

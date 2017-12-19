@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     window?.makeKeyAndVisible()
     
     let homeController = CompaniesController()
-    homeController.viewModel = CompaniesViewModel()
+    homeController.viewModel = CompaniesViewModel(companyService: CompanyService())
     window?.rootViewController = UINavigationController(rootViewController: homeController)
     
     application.statusBarStyle = .lightContent

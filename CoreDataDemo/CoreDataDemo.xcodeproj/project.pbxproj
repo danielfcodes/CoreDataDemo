@@ -18,7 +18,9 @@
 		4C3288AF1FB7E7F100749988 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288AE1FB7E7F100749988 /* CompanyCell.swift */; };
 		4C3288B11FB7EBCD00749988 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B01FB7EBCD00749988 /* Fonts.swift */; };
 		4C3288B31FB7ECB000749988 /* Sizes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B21FB7ECB000749988 /* Sizes.swift */; };
-		4C3288B61FB7ED3B00749988 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B51FB7ED3B00749988 /* Company.swift */; };
+		4C3288B61FB7ED3B00749988 /* APICompany.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C3288B51FB7ED3B00749988 /* APICompany.swift */; };
+		4C33BBF11FE22F9100426E64 /* CompanyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33BBF01FE22F9100426E64 /* CompanyService.swift */; };
+		4C33BBF31FE234E500426E64 /* APIEmployee.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C33BBF21FE234E500426E64 /* APIEmployee.swift */; };
 		4C6B872D1FDCB71F003745E6 /* HeaderLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6B872C1FDCB71F003745E6 /* HeaderLabel.swift */; };
 		4C6DCC7D1FB8CC390012FA12 /* CreateCompanyController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C6DCC7C1FB8CC390012FA12 /* CreateCompanyController.swift */; };
 		4C770B761FC9E6D40030DF0D /* Successful.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C770B751FC9E6D40030DF0D /* Successful.swift */; };
@@ -51,7 +53,9 @@
 		4C3288AE1FB7E7F100749988 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		4C3288B01FB7EBCD00749988 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		4C3288B21FB7ECB000749988 /* Sizes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sizes.swift; sourceTree = "<group>"; };
-		4C3288B51FB7ED3B00749988 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
+		4C3288B51FB7ED3B00749988 /* APICompany.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICompany.swift; sourceTree = "<group>"; };
+		4C33BBF01FE22F9100426E64 /* CompanyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyService.swift; sourceTree = "<group>"; };
+		4C33BBF21FE234E500426E64 /* APIEmployee.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEmployee.swift; sourceTree = "<group>"; };
 		4C6B872C1FDCB71F003745E6 /* HeaderLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderLabel.swift; sourceTree = "<group>"; };
 		4C6DCC7C1FB8CC390012FA12 /* CreateCompanyController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCompanyController.swift; sourceTree = "<group>"; };
 		4C770B751FC9E6D40030DF0D /* Successful.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Successful.swift; sourceTree = "<group>"; };
@@ -114,6 +118,7 @@
 				4C8A3D2C1FC0AFD300B216E6 /* Persistence */,
 				4C3288A61FB7E1C700749988 /* Helpers */,
 				4C3288AC1FB7E33E00749988 /* Resources */,
+				4C33BBEF1FE22F7E00426E64 /* Services */,
 				4C3288B41FB7ED2800749988 /* Models */,
 				4C8A3D301FC0B13E00B216E6 /* ViewModels */,
 				4C3288AA1FB7E33200749988 /* Views */,
@@ -178,9 +183,18 @@
 		4C3288B41FB7ED2800749988 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4C3288B51FB7ED3B00749988 /* Company.swift */,
+				4C3288B51FB7ED3B00749988 /* APICompany.swift */,
+				4C33BBF21FE234E500426E64 /* APIEmployee.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		4C33BBEF1FE22F7E00426E64 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				4C33BBF01FE22F9100426E64 /* CompanyService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		4C8A3D2C1FC0AFD300B216E6 /* Persistence */ = {
@@ -297,7 +311,8 @@
 				4C8A3D2F1FC0AFEC00B216E6 /* CoreDataModel.xcdatamodeld in Sources */,
 				4C3288971FB7DC5300749988 /* CompaniesController.swift in Sources */,
 				4CD45C7E1FD64644006C144B /* EmployeeCell.swift in Sources */,
-				4C3288B61FB7ED3B00749988 /* Company.swift in Sources */,
+				4C33BBF11FE22F9100426E64 /* CompanyService.swift in Sources */,
+				4C3288B61FB7ED3B00749988 /* APICompany.swift in Sources */,
 				4C0834001FDDBD430002F9BB /* EmployeeViewModelItem.swift in Sources */,
 				4C6B872D1FDCB71F003745E6 /* HeaderLabel.swift in Sources */,
 				4C8A3D321FC0B15800B216E6 /* CompaniesViewModel.swift in Sources */,
@@ -305,6 +320,7 @@
 				4CD45C801FD646A4006C144B /* EmployeeCellViewModel.swift in Sources */,
 				4C3288AF1FB7E7F100749988 /* CompanyCell.swift in Sources */,
 				974F03101FCE4F1A001B16D9 /* UnderlinedLabel.swift in Sources */,
+				4C33BBF31FE234E500426E64 /* APIEmployee.swift in Sources */,
 				4CD45C7A1FD6446A006C144B /* EmployeesController.swift in Sources */,
 				4C770B961FCA346A0030DF0D /* ShadowView.swift in Sources */,
 				4C770B761FC9E6D40030DF0D /* Successful.swift in Sources */,

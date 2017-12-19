@@ -18,6 +18,11 @@ class CompaniesController: UIViewController{
     tv.backgroundColor = Palette.viewDarkBackgroundColor
     tv.register(CompanyCell.self, forCellReuseIdentifier: Identifiers.mainCell)
     tv.separatorStyle = .none
+    
+    let refreshControl = UIRefreshControl()
+    refreshControl.tintColor = .white
+    refreshControl.addTarget(self, action: #selector(pullToRefresh), for: .valueChanged)
+    tv.refreshControl = refreshControl
     return tv
   }()
   
@@ -97,6 +102,12 @@ extension CompaniesController{
       
     })
     
+  }
+  
+  @objc
+  private func pullToRefresh(){
+    viewModel.getCompaniesFromNetwork()
+    tableView.refreshControl?.endRefreshing()
   }
   
   @objc
